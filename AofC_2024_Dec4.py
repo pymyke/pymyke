@@ -106,5 +106,33 @@ print(f'Total Count: {iTotal}')  # part 1, 2434
 # part 2
 # need to count occurrences of MAS/SAM in an X shape
 # MAS can appear forward or backward in same X
-# ug
+#
+# we'll process by rows, 3 at a time
+# if 'a' appears in the middle row, then look for the 'X'
+
+with open('AdventOfCode\data\Dec4-24.txt', 'r') as DecFile:
+	slines = DecFile.readlines()
+	icount = 0
+
+	sPrevious = ''
+	sCurrent = ''
+	sNext = ''
+
+	for aline in slines:
+		sPrevious = sCurrent
+		sCurrent = sNext
+		sNext = aline
+		if sPrevious=='' or sCurrent=='' or sNext=='':
+			continue # skip to next row
+
+		# look for an 'a' in sCurrent, skipping left-most and 2 right-most
+		for xpos in range(1,len(sCurrent)-2):
+			if sCurrent[xpos] == 'A':
+				if (sPrevious[xpos-1]+sNext[xpos+1] == 'MS' or
+					sPrevious[xpos-1]+sNext[xpos+1] == 'SM'): 
+					if (sPrevious[xpos+1]+sNext[xpos-1] == 'MS' or
+						sPrevious[xpos+1]+sNext[xpos-1] == 'SM'):
+						icount += 1
+		
+	print(f'Part 2 count: {icount}') # 1835
 
