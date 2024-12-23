@@ -6,7 +6,7 @@ both of the following are true:
 '''
 iSafeReports = 0
 
-with open('AdventOfCode\data\Dec2-24.txt', 'r') as DecFile:
+with open('data\Dec2-24.txt', 'r') as DecFile:
 	slines = DecFile.readlines()
 
 	for aline in slines:
