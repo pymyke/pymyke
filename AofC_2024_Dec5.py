@@ -5,7 +5,27 @@
 #	of those good sequences, find the middle numbers and add them together, that's your answer
 import re
 
+
+# put the numbers in 'badList' in correct order based on the lists in aDict
+def FixList(badList, aDict):
+	fixed = []
+	for x in badList:
+		bFound = False
+		xList = aDict[x]  # list of values that must appear AFTER 'x'
+
+		for y in range(len(fixed)):
+			if fixed[y] in xList:
+				fixed.insert(y, x)
+				bFound = True 
+				break  
+
+		if not bFound:
+			fixed.append(x)
+
+	return int(fixed[(len(fixed) // 2) ])	
+
 iTotal = 0
+iTotalFixed = 0
 iRows = 0
 iColumns = 0
 linecount = 0
@@ -55,6 +75,8 @@ with open('data\Dec5-24.txt', 'r') as DecFile:
 
 			if bFailed:
 				linebadcount += 1
+				iTotalFixed += FixList(pageList, linesDict) # put the pages in the correct order & return middle value
+
 			else: # was a good line so find middle value
 				iTotal += int(pageList[(len(pageList) // 2) ])
 
@@ -62,11 +84,6 @@ with open('data\Dec5-24.txt', 'r') as DecFile:
 
 
 print(f'{linebadcount} were bad out of {linecount}')
-print(f'Total={iTotal}') # 5948
-
-# part 2
-
-# for the incorrect sequences, put them in order
-# then just for those, take the sum of the  middle values
-
+print(f'Total Part 1={iTotal}') # 5948
+print(f'Total Part 2={iTotalFixed}')	# 3062 
 
