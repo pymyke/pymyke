@@ -66,6 +66,3 @@ while bInRoom:
 print(f'Guard is now at [{guardX},{guardY}] at step {iUniqueSteps}')
 
 print(f'The guard took {iUniqueSteps} steps')	# 387 is too low
-
-#for aline in linelist:
-#	print(aline)
